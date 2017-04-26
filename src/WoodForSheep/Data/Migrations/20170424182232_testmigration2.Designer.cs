@@ -8,9 +8,10 @@ using WoodForSheep.Data;
 namespace WoodForSheep.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20170424182232_testmigration2")]
+    partial class testmigration2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .HasAnnotation("ProductVersion", "1.0.1")
@@ -186,24 +187,6 @@ namespace WoodForSheep.Data.Migrations
                     b.ToTable("Games");
                 });
 
-            modelBuilder.Entity("WoodForSheep.Models.GameUser", b =>
-                {
-                    b.Property<int>("ID")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<int>("GameID");
-
-                    b.Property<string>("UserID");
-
-                    b.HasKey("ID");
-
-                    b.HasIndex("GameID");
-
-                    b.HasIndex("UserID");
-
-                    b.ToTable("GameUsers");
-                });
-
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityRole")
@@ -239,18 +222,6 @@ namespace WoodForSheep.Data.Migrations
                         .WithMany("Roles")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("WoodForSheep.Models.GameUser", b =>
-                {
-                    b.HasOne("WoodForSheep.Models.Game", "Game")
-                        .WithMany()
-                        .HasForeignKey("GameID")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("WoodForSheep.Models.ApplicationUser", "User")
-                        .WithMany()
-                        .HasForeignKey("UserID");
                 });
         }
     }

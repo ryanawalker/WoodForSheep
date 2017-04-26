@@ -1,0 +1,9 @@
+﻿<h1>@ViewBag.Game.Name</h1>
+<h3>@ViewBag.Game.Description</h3>
+
+<form asp-controller="Game" asp-action="Add" method="post">
+    <div class="form-group">
+        <input class="form-control" type="hidden" value="@ViewBag.Game.ID" name="gameId"/>
+    </div>
+    <input type="submit" value="Add Game to Collection" />
+</form>
