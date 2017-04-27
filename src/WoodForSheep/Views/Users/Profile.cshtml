@@ -1,0 +1,11 @@
+﻿@model ApplicationUser
+
+<h1>User: @Model.UserName</h1>
+
+<h3>Game Library:</h3>
+<ul>
+    @foreach (var game in ViewBag.Library)
+    {
+        <li><a asp-controller="Games" asp-action="ViewGame" asp-route-id="@game.Game.ID">@game.Game.Name</a></li>
+    }
+</ul>
