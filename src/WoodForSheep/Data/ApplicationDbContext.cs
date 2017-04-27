@@ -15,6 +15,8 @@ namespace WoodForSheep.Data
 
         public DbSet<GameUser> GameUsers { get; set; }
 
+        public DbSet<Trade> Trades { get; set; }
+
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
         {
