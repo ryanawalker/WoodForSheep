@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace WoodForSheep.Controllers
 {
-    public class UserController : Controller
+    public class UsersController : Controller
     {
         // GET: /<controller>/
         public IActionResult Index()

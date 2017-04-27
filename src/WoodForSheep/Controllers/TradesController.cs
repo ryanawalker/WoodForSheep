@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace WoodForSheep.Controllers
 {
-    public class TradeController : Controller
+    public class TradesController : Controller
     {
         // GET: /<controller>/
         public IActionResult Index()

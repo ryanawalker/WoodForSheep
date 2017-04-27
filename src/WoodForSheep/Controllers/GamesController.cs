@@ -13,13 +13,13 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace WoodForSheep.Controllers
 {
-    public class GameController : Controller
+    public class GamesController : Controller
     {
         private ApplicationDbContext context;
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
 
-        public GameController(UserManager<ApplicationUser> userManager,
+        public GamesController(UserManager<ApplicationUser> userManager,
             SignInManager<ApplicationUser> signInManager, 
             ApplicationDbContext dbContext)
         {
@@ -28,13 +28,13 @@ namespace WoodForSheep.Controllers
             context = dbContext;
         }
 
-        // GET: /Game/
+        // GET: /Games/
         public IActionResult Index()
         {
             return View();
         }
         
-        // GET: /Game/<ID>
+        // GET: /Games/ViewGame/<ID>
         
         public IActionResult ViewGame(int id)
         {
