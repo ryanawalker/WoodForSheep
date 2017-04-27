@@ -7,6 +7,7 @@ using WoodForSheep.Data;
 using Microsoft.AspNetCore.Identity;
 using WoodForSheep.Models;
 using Microsoft.EntityFrameworkCore;
+using System.Security.Claims;
 
 // For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -49,6 +50,19 @@ namespace WoodForSheep.Controllers
                 .Include(g => g.Game)
                 .Where(u => u.UserID == user.Id)
                 .ToList();
+
+            // Determine if user being viewed == signed in user.
+            if (!_signInManager.IsSignedIn(User))
+            {
+                ViewBag.userIsProfileOwner = false;
+            }
+            else
+            {
+                ClaimsPrincipal currentUser = this.User;
+                var userId = currentUser.FindFirst(ClaimTypes.NameIdentifier).Value;
+                ViewBag.userIsProfileOwner = (user.Id == userId);
+            }
+
             return View(user);
         }
     }

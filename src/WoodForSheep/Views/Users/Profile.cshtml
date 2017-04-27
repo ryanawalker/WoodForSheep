@@ -6,6 +6,14 @@
 <ul>
     @foreach (var game in ViewBag.Library)
     {
-        <li><a asp-controller="Games" asp-action="ViewGame" asp-route-id="@game.Game.ID">@game.Game.Name</a></li>
+        <li>
+            <a asp-controller="Games" asp-action="ViewGame" asp-route-id="@game.Game.ID">@game.Game.Name</a>
+            @if (ViewBag.userIsProfileOwner)
+            {
+                // TODO: Actually implement deletion.
+                <a href="placeholder">Delete</a>
+            }
+        </li>
+
     }
 </ul>

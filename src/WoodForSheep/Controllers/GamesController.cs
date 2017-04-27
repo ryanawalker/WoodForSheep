@@ -41,7 +41,7 @@ namespace WoodForSheep.Controllers
             // Make sure game with ID exists.
             if (context.Games.SingleOrDefault(g => g.ID == id) == null)
             {
-                return Redirect("/Game");
+                return Redirect("/Games");
             }
 
             // Pass game info from database to view.
@@ -80,7 +80,7 @@ namespace WoodForSheep.Controllers
                 context.SaveChanges();
             }
 
-            return Redirect("/Game");
+            return Redirect("/Games");
         }
     }
 }
