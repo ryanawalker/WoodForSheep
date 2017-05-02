@@ -28,9 +28,6 @@ namespace WoodForSheep.Controllers
             context = dbContext;
         }
 
-        // TODO: When search is implemented, will have to handle redirects
-        // from the search page to create new db entries if game doesn't exist.
-
         // GET: /Games/
         public IActionResult Index()
         {

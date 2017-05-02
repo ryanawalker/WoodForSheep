@@ -12,7 +12,6 @@ namespace WoodForSheep.Models
         public ApplicationUser User { get; set; }
 
         public int GameID { get; set; }
-        public string GameStatus { get; set; }
         public Game Game { get; set; }
     }
 }
