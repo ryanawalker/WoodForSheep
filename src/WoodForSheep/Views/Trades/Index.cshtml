@@ -1,0 +1,82 @@
+﻿<h1>Your Trades</h1>
+
+<h3>Accepted Trades</h3>
+<ul>
+    @foreach (Trade trade in ViewBag.acceptedTrades)
+    {
+        <li>
+            <a asp-controller="Users" asp-action="Profile" asp-route-username="@trade.UserInit">@trade.UserInit</a>
+            is trading
+            <a asp-controller="Games" asp-action="ViewGame" asp-route-id="@trade.GameInitID">@trade.GameInit</a>
+            for
+            <a asp-controller="Games" asp-action="ViewGame" asp-route-id="@trade.GameReceiveID">@trade.GameReceive</a>
+            from
+            <a asp-controller="Users" asp-action="Profile" asp-route-username="@trade.UserReceive">@trade.UserReceive</a>.
+            <form class="inline-form-button" asp-controller="Trades" asp-action="Reject" method="post">
+                <input type="hidden" name="tradeID" value="@trade.ID" />
+                <input class="btn btn-danger" type="submit" value="Reject" />
+            </form>
+            <form class="inline-form-button" asp-controller="Trades" asp-action="Complete" method="post">
+                <input type="hidden" name="tradeID" value="@trade.ID" />
+                <input type="hidden" name="userID" value="ViewBag.UserID" />
+                <input class="btn btn-primary" type="submit" value="Complete" />
+            </form>
+        </li>
+    }
+</ul>
+
+<h3>Proposed Trades</h3>
+<ul>
+    @foreach (Trade trade in ViewBag.proposedTrades)
+    {
+        <li>
+            <a asp-controller="Users" asp-action="Profile" asp-route-username="@trade.UserInit">@trade.UserInit</a>
+            suggests
+            <a asp-controller="Games" asp-action="ViewGame" asp-route-id="@trade.GameInitID">@trade.GameInit</a>
+            for
+            <a asp-controller="Games" asp-action="ViewGame" asp-route-id="@trade.GameReceiveID">@trade.GameReceive</a>
+            from
+            <a asp-controller="Users" asp-action="Profile" asp-route-username="@trade.UserReceive">@trade.UserReceive</a>.
+            <form class="inline-form-button" asp-controller="Trades" asp-action="Accept" method="post">
+                <input type="hidden" name="tradeID" value="@trade.ID" />
+                <input class="btn btn-success" type="submit" value="Accept" />
+            </form>
+            <form class="inline-form-button" asp-controller="Trades" asp-action="Reject" method="post">
+                <input type="hidden" name="tradeID" value="@trade.ID" />
+                <input class="btn btn-danger" type="submit" value="Reject" />
+            </form>
+        </li>
+    }
+</ul>
+
+<h3>Completed Trades</h3>
+<ul>
+    @foreach (Trade trade in ViewBag.completedTrades)
+    {
+        <li>
+            <a asp-controller="Users" asp-action="Profile" asp-route-username="@trade.UserInit">@trade.UserInit</a>
+            traded
+            <a asp-controller="Games" asp-action="ViewGame" asp-route-id="@trade.GameInitID">@trade.GameInit</a>
+            for
+            <a asp-controller="Games" asp-action="ViewGame" asp-route-id="@trade.GameReceiveID">@trade.GameReceive</a>
+            from
+            <a asp-controller="Users" asp-action="Profile" asp-route-username="@trade.UserReceive">@trade.UserReceive</a>.
+        </li>
+    }
+</ul>
+
+<h3>Rejected Trades</h3>
+<ul>
+    @foreach (Trade trade in ViewBag.rejectedTrades)
+    {
+        <li>
+            <a asp-controller="Users" asp-action="Profile" asp-route-username="@trade.UserInit">@trade.UserInit</a>
+            suggested trade
+            <a asp-controller="Games" asp-action="ViewGame" asp-route-id="@trade.GameInitID">@trade.GameInit</a>
+            for
+            <a asp-controller="Games" asp-action="ViewGame" asp-route-id="@trade.GameReceiveID">@trade.GameReceive</a>
+            from
+            <a asp-controller="Users" asp-action="Profile" asp-route-username="@trade.UserReceive">@trade.UserReceive</a>.
+        </li>
+    }
+</ul>

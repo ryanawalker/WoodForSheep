@@ -41,6 +41,10 @@ textarea {
     width: 100%;
 }
 
+.inline-form-button {
+    display:inline-block;
+}
+
 /* Hide/rearrange for smaller screens */
 @media screen and (max-width: 767px) {
   /* Hide captions */
