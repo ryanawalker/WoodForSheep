@@ -1,1 +1,26 @@
-﻿<h1>Placeholder.</h1>
+﻿<script src="/lib/jquery/dist/jquery.js"></script>
+<h1>Game Search</h1>
+<input type="text" id="searchbox" value="Enter Search Term" />
+<button class="searchbutton">Search!</button>
+
+<h3>Search Results</h3>
+<ol id="results-list"></ol>
+
+<script>
+    var searchTerm
+    var searchResult
+    var searchLinkPre = "https://boardgamegeek.com/search/boardgame?q="
+    var searchLinkPost = "&showcount=50"
+    $(".searchbutton").click(function () {
+        console.log($("#searchbox").val());
+        searchTerm = $("#searchbox").val();
+        searchResult = $.getJSON(searchLinkPre + searchTerm + searchLinkPost).done(function(data) {
+            searchResult = searchResult.responseJSON.items
+            $("#results-list").html("")
+            $.each(searchResult, function () {
+                var resultListItemString = '<li><a href="/Games/ViewGame/' + this.objectid + '">' + this.name + ' (' + this.yearpublished + ')</a></li>'
+                $("#results-list").append(resultListItemString)
+            });
+        });
+    });
+</script>

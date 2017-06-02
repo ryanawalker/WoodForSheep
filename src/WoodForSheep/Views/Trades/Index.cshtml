@@ -7,9 +7,9 @@
         <li>
             <a asp-controller="Users" asp-action="Profile" asp-route-username="@trade.UserInit">@trade.UserInit</a>
             is trading
-            <a asp-controller="Games" asp-action="ViewGame" asp-route-id="@trade.GameInitID">@trade.GameInit</a>
+            <a asp-controller="Games" asp-action="ViewGame" asp-route-id="@trade.GameInit.BGGID">@trade.GameInit</a>
             for
-            <a asp-controller="Games" asp-action="ViewGame" asp-route-id="@trade.GameReceiveID">@trade.GameReceive</a>
+            <a asp-controller="Games" asp-action="ViewGame" asp-route-id="@trade.GameReceive.BGGID">@trade.GameReceive</a>
             from
             <a asp-controller="Users" asp-action="Profile" asp-route-username="@trade.UserReceive">@trade.UserReceive</a>.
             <form class="inline-form-button" asp-controller="Trades" asp-action="Reject" method="post">
@@ -32,9 +32,9 @@
         <li>
             <a asp-controller="Users" asp-action="Profile" asp-route-username="@trade.UserInit">@trade.UserInit</a>
             suggests
-            <a asp-controller="Games" asp-action="ViewGame" asp-route-id="@trade.GameInitID">@trade.GameInit</a>
+            <a asp-controller="Games" asp-action="ViewGame" asp-route-id="@trade.GameInit.BGGID">@trade.GameInit</a>
             for
-            <a asp-controller="Games" asp-action="ViewGame" asp-route-id="@trade.GameReceiveID">@trade.GameReceive</a>
+            <a asp-controller="Games" asp-action="ViewGame" asp-route-id="@trade.GameReceive.BGGID">@trade.GameReceive</a>
             from
             <a asp-controller="Users" asp-action="Profile" asp-route-username="@trade.UserReceive">@trade.UserReceive</a>.
             <form class="inline-form-button" asp-controller="Trades" asp-action="Accept" method="post">
@@ -56,9 +56,9 @@
         <li>
             <a asp-controller="Users" asp-action="Profile" asp-route-username="@trade.UserInit">@trade.UserInit</a>
             traded
-            <a asp-controller="Games" asp-action="ViewGame" asp-route-id="@trade.GameInitID">@trade.GameInit</a>
+            <a asp-controller="Games" asp-action="ViewGame" asp-route-id="@trade.GameInit.BGGID">@trade.GameInit</a>
             for
-            <a asp-controller="Games" asp-action="ViewGame" asp-route-id="@trade.GameReceiveID">@trade.GameReceive</a>
+            <a asp-controller="Games" asp-action="ViewGame" asp-route-id="@trade.GameReceive.BGGID">@trade.GameReceive</a>
             from
             <a asp-controller="Users" asp-action="Profile" asp-route-username="@trade.UserReceive">@trade.UserReceive</a>.
         </li>
@@ -72,9 +72,9 @@
         <li>
             <a asp-controller="Users" asp-action="Profile" asp-route-username="@trade.UserInit">@trade.UserInit</a>
             suggested trade
-            <a asp-controller="Games" asp-action="ViewGame" asp-route-id="@trade.GameInitID">@trade.GameInit</a>
+            <a asp-controller="Games" asp-action="ViewGame" asp-route-id="@trade.GameInit.BGGID">@trade.GameInit</a>
             for
-            <a asp-controller="Games" asp-action="ViewGame" asp-route-id="@trade.GameReceiveID">@trade.GameReceive</a>
+            <a asp-controller="Games" asp-action="ViewGame" asp-route-id="@trade.GameReceive.BGGID">@trade.GameReceive</a>
             from
             <a asp-controller="Users" asp-action="Profile" asp-route-username="@trade.UserReceive">@trade.UserReceive</a>.
         </li>

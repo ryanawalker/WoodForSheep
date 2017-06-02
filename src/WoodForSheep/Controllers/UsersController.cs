@@ -43,7 +43,7 @@ namespace WoodForSheep.Controllers
         {
             // Find User.
             ApplicationUser user = context.Users.Single(u => u.UserName == userName);
-            // Find User's library.
+            // Find Selected User's library.
             // TODO: Replace with viewmodel solution.
             ViewBag.Library = context
                 .GameUsers
@@ -55,12 +55,21 @@ namespace WoodForSheep.Controllers
             if (!_signInManager.IsSignedIn(User))
             {
                 ViewBag.userIsProfileOwner = false;
+                ViewBag.ViewerLibrary = new List<GameUser>();
             }
             else
             {
                 ClaimsPrincipal currentUser = this.User;
                 var userId = currentUser.FindFirst(ClaimTypes.NameIdentifier).Value;
                 ViewBag.userIsProfileOwner = (user.Id == userId);
+                if (!ViewBag.userIsProfileOwner)
+                {
+                    ViewBag.ViewerLibrary = context
+                        .GameUsers
+                        .Include(g => g.Game)
+                        .Where(u => u.UserID == userId)
+                        .ToList();
+                }
             }
 
             return View(user);

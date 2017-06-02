@@ -1,9 +1,23 @@
-﻿<h1>@ViewBag.Game.Name</h1>
-<h3>@ViewBag.Game.Description</h3>
+﻿<script src="/lib/jquery/dist/jquery.js"></script>
+<script>var testJSON = $.getJSON("https://bgg-json.azurewebsites.net/thing/@ViewBag.BGGID", function() {
+    $("#name").text(testJSON.responseJSON.name);
+    $("#name-input").val(testJSON.responseJSON.name);
+    $("#year").text(testJSON.responseJSON.yearPublished);
+    $("#art").attr("src", testJSON.responseJSON.image);
+    $("#description").html(testJSON.responseJSON.description);
+});
+    
+</script>
+
+<h1 id="name"></h1>
+<img id="art" style="max-width: 300px"/>
+<h3 id="year"></h3>
+<p id="description"></p>
 
 <form asp-controller="Games" asp-action="Add" method="post">
     <div class="form-group">
-        <input class="form-control" type="hidden" value="@ViewBag.Game.ID" name="gameId"/>
+        <input id="name-input" class="hidden" value="" name="name"/>
+        <input class="form-control" type="hidden" value="@ViewBag.BGGID" name="BGGID"/>
     </div>
     <input type="submit" value="Add Game to Collection" />
 </form>

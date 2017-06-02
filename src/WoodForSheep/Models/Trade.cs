@@ -10,9 +10,9 @@ namespace WoodForSheep.Models
     {
         public int ID { get; set; }
 
-        public int GameInitID { get; set; }
+        public int? GameInitID { get; set; }
         public Game GameInit { get; set; }
-        public int GameReceiveID { get; set; }
+        public int? GameReceiveID { get; set; }
         public Game GameReceive { get; set; }
 
         public string UserInitID { get; set; }
