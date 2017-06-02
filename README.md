@@ -2,10 +2,6 @@
 
 WoodForSheep is a .NET Core MVC web application for board game library curation and trading between users.
 
-## Getting Started
-
-These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
-
 ## Built With
 
 * [.NET Core MVC](https://docs.microsoft.com/en-us/aspnet/core/) - The web framework used.
@@ -17,7 +13,7 @@ These instructions will get you a copy of the project up and running on your loc
 
 * **Ryan Walker** - *Initial work* - [ryanawalker](https://github.com/ryanawalker)
 
-See also the list of [contributors](https://github.com/your/project/contributors) who participated in this project.
+See also the list of [contributors](https://github.com/ryanawalker/WoodForSheep/contributors) who participated in this project.
 
 ## License
 
