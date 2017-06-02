@@ -6,14 +6,33 @@
 <ul>
     @foreach (var game in ViewBag.Library)
     {
-        <li>
-            <a asp-controller="Games" asp-action="ViewGame" asp-route-id="@game.Game.ID">@game.Game.Name</a>
-            @if (ViewBag.userIsProfileOwner)
-            {
-                // TODO: Actually implement deletion.
-                <a href="placeholder">Delete</a>
-            }
-        </li>
-
+            <li>
+                <a asp-controller="Games" asp-action="ViewGame" asp-route-id="@game.Game.BGGID">@game.Game.Name</a>
+                @if (!ViewBag.userIsProfileOwner)
+                {
+                    @if (game.GameStatus == "Free")
+                    {
+                        <form class="inline-form-button" asp-controller="Trades" asp-action="Propose" method="post">
+                            <input type="hidden" name="gameReceiveID" value="@game.Game.ID" />
+                            <input type="hidden" name="userReceiveID" value="@Model.Id" />
+                            <label for="gameInitID">Propose trade for:</label>
+                            <select name="gameInitID">
+                                @foreach (var viewerGame in ViewBag.ViewerLibrary)
+                        {
+                            if (viewerGame.GameStatus == "Free")
+                            {
+                                        <option value="@viewerGame.Game.ID">@viewerGame.Game.Name</option>
+                                    }
+                                }
+                            </select>
+                            <input class="btn btn-success" type="submit" value="Propose Trade" />
+                        </form>
+                    }
+                    else
+                    {
+                        <strong>Game currently reserved.</strong>
+                    }
+                }
+            </li>
     }
 </ul>
