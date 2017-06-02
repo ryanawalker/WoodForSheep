@@ -9,7 +9,7 @@ namespace WoodForSheep.Models.AccountViewModels
     public class LoginViewModel
     {
         [Required]
-        [EmailAddress]
+        [Display(Name = "UserName")]
         public string Email { get; set; }
 
         [Required]
