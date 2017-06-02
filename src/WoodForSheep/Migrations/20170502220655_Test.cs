@@ -1,13 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
+using Microsoft.EntityFrameworkCore.Metadata;
 
-namespace WoodForSheep.Data.Migrations
+namespace WoodForSheep.Migrations
 {
-    public partial class CreateIdentitySchema : Migration
+    public partial class Test : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -65,6 +63,21 @@ namespace WoodForSheep.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Games",
+                columns: table => new
+                {
+                    ID = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    BGGID = table.Column<int>(nullable: false),
+                    Description = table.Column<string>(nullable: true),
+                    Name = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Games", x => x.ID);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "AspNetRoleClaims",
                 columns: table => new
                 {
@@ -82,7 +95,7 @@ namespace WoodForSheep.Data.Migrations
                         column: x => x.RoleId,
                         principalTable: "AspNetRoles",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -103,7 +116,7 @@ namespace WoodForSheep.Data.Migrations
                         column: x => x.UserId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -123,7 +136,7 @@ namespace WoodForSheep.Data.Migrations
                         column: x => x.UserId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -141,13 +154,82 @@ namespace WoodForSheep.Data.Migrations
                         column: x => x.RoleId,
                         principalTable: "AspNetRoles",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_AspNetUserRoles_AspNetUsers_UserId",
                         column: x => x.UserId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "GameUsers",
+                columns: table => new
+                {
+                    ID = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    GameID = table.Column<int>(nullable: false),
+                    GameStatus = table.Column<string>(nullable: true),
+                    UserID = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_GameUsers", x => x.ID);
+                    table.ForeignKey(
+                        name: "FK_GameUsers_Games_GameID",
+                        column: x => x.GameID,
+                        principalTable: "Games",
+                        principalColumn: "ID",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_GameUsers_AspNetUsers_UserID",
+                        column: x => x.UserID,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Trades",
+                columns: table => new
+                {
+                    ID = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    GameInitID = table.Column<int>(nullable: true),
+                    GameReceiveID = table.Column<int>(nullable: true),
+                    UserInitID = table.Column<string>(nullable: true),
+                    UserInitStatus = table.Column<string>(nullable: true),
+                    UserReceiveID = table.Column<string>(nullable: true),
+                    UserReceiveStatus = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Trades", x => x.ID);
+                    table.ForeignKey(
+                        name: "FK_Trades_Games_GameInitID",
+                        column: x => x.GameInitID,
+                        principalTable: "Games",
+                        principalColumn: "ID",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Trades_Games_GameReceiveID",
+                        column: x => x.GameReceiveID,
+                        principalTable: "Games",
+                        principalColumn: "ID",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Trades_AspNetUsers_UserInitID",
+                        column: x => x.UserInitID,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Trades_AspNetUsers_UserReceiveID",
+                        column: x => x.UserReceiveID,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateIndex(
@@ -190,6 +272,36 @@ namespace WoodForSheep.Data.Migrations
                 table: "AspNetUsers",
                 column: "NormalizedUserName",
                 unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_GameUsers_GameID",
+                table: "GameUsers",
+                column: "GameID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_GameUsers_UserID",
+                table: "GameUsers",
+                column: "UserID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Trades_GameInitID",
+                table: "Trades",
+                column: "GameInitID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Trades_GameReceiveID",
+                table: "Trades",
+                column: "GameReceiveID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Trades_UserInitID",
+                table: "Trades",
+                column: "UserInitID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Trades_UserReceiveID",
+                table: "Trades",
+                column: "UserReceiveID");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -210,7 +322,16 @@ namespace WoodForSheep.Data.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
+                name: "GameUsers");
+
+            migrationBuilder.DropTable(
+                name: "Trades");
+
+            migrationBuilder.DropTable(
                 name: "AspNetRoles");
+
+            migrationBuilder.DropTable(
+                name: "Games");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");

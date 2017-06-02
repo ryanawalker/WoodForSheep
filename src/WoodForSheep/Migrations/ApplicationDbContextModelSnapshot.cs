@@ -5,13 +5,12 @@ using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using WoodForSheep.Data;
 
-namespace WoodForSheep.Data.Migrations
+namespace WoodForSheep.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20170424180945_testmigration")]
-    partial class testmigration
+    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
     {
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .HasAnnotation("ProductVersion", "1.0.1")
@@ -175,53 +174,128 @@ namespace WoodForSheep.Data.Migrations
 
             modelBuilder.Entity("WoodForSheep.Models.Game", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("ID")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("Description");
+                    b.Property<int>("BGGID");
 
                     b.Property<string>("Name");
 
-                    b.HasKey("Id");
+                    b.HasKey("ID");
 
                     b.ToTable("Games");
+                });
+
+            modelBuilder.Entity("WoodForSheep.Models.GameUser", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int>("GameID");
+
+                    b.Property<string>("GameStatus");
+
+                    b.Property<string>("UserID");
+
+                    b.HasKey("ID");
+
+                    b.HasIndex("GameID");
+
+                    b.HasIndex("UserID");
+
+                    b.ToTable("GameUsers");
+                });
+
+            modelBuilder.Entity("WoodForSheep.Models.Trade", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int?>("GameInitID");
+
+                    b.Property<int?>("GameReceiveID");
+
+                    b.Property<string>("UserInitID");
+
+                    b.Property<string>("UserInitStatus");
+
+                    b.Property<string>("UserReceiveID");
+
+                    b.Property<string>("UserReceiveStatus");
+
+                    b.HasKey("ID");
+
+                    b.HasIndex("GameInitID");
+
+                    b.HasIndex("GameReceiveID");
+
+                    b.HasIndex("UserInitID");
+
+                    b.HasIndex("UserReceiveID");
+
+                    b.ToTable("Trades");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityRole")
                         .WithMany("Claims")
-                        .HasForeignKey("RoleId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("RoleId");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityUserClaim<string>", b =>
                 {
                     b.HasOne("WoodForSheep.Models.ApplicationUser")
                         .WithMany("Claims")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("UserId");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityUserLogin<string>", b =>
                 {
                     b.HasOne("WoodForSheep.Models.ApplicationUser")
                         .WithMany("Logins")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("UserId");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityUserRole<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityRole")
                         .WithMany("Users")
-                        .HasForeignKey("RoleId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("RoleId");
 
                     b.HasOne("WoodForSheep.Models.ApplicationUser")
                         .WithMany("Roles")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("UserId");
+                });
+
+            modelBuilder.Entity("WoodForSheep.Models.GameUser", b =>
+                {
+                    b.HasOne("WoodForSheep.Models.Game", "Game")
+                        .WithMany()
+                        .HasForeignKey("GameID");
+
+                    b.HasOne("WoodForSheep.Models.ApplicationUser", "User")
+                        .WithMany()
+                        .HasForeignKey("UserID");
+                });
+
+            modelBuilder.Entity("WoodForSheep.Models.Trade", b =>
+                {
+                    b.HasOne("WoodForSheep.Models.Game", "GameInit")
+                        .WithMany()
+                        .HasForeignKey("GameInitID");
+
+                    b.HasOne("WoodForSheep.Models.Game", "GameReceive")
+                        .WithMany()
+                        .HasForeignKey("GameReceiveID");
+
+                    b.HasOne("WoodForSheep.Models.ApplicationUser", "UserInit")
+                        .WithMany()
+                        .HasForeignKey("UserInitID");
+
+                    b.HasOne("WoodForSheep.Models.ApplicationUser", "UserReceive")
+                        .WithMany()
+                        .HasForeignKey("UserReceiveID");
                 });
         }
     }
