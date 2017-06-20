@@ -45,7 +45,6 @@ namespace WoodForSheep.Controllers
             ViewBag.UserID = userId;
 
             // query Trades table, search for trades where UserInitID or UserReceiveID == userId. Return list of those trades to view.
-            // TODO: There has to be a dozen better ways to do this, figure one out.
             // TODO: Add "awaiting other user completion" category with according logic.
             ViewBag.proposedTrades = context.Trades
                 .Include(t => t.GameInit).Include(t => t.GameReceive).Include(t => t.UserInit).Include(t => t.UserReceive)

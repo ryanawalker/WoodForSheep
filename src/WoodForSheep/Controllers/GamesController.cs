@@ -29,9 +29,6 @@ namespace WoodForSheep.Controllers
             context = dbContext;
         }
 
-        // TODO: When search is implemented, will have to handle redirects
-        // from the search page to create new db entries if game doesn't exist.
-
         // GET: /Games/
         public IActionResult Index()
         {
@@ -70,7 +67,7 @@ namespace WoodForSheep.Controllers
             ClaimsPrincipal currentUser = this.User;
             var userId = currentUser.FindFirst(ClaimTypes.NameIdentifier).Value;
 
-            // TODO: Check to make sure game exists in database.
+            // Check to make sure game exists in database. If not, add game to database.
             IList<Game> existingGames = context.Games
                 .Where(g => g.BGGID == BGGID)
                 .ToList();
