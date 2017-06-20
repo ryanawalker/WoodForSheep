@@ -1,23 +1,23 @@
-﻿@model ApplicationUser
+﻿@model WoodForSheep.Models.UserViewModels.ProfileViewModel
 
-<h1>User: @Model.UserName</h1>
+<h1>User: @Model.User.UserName</h1>
 
 <h3>Game Library:</h3>
 <ul>
-    @foreach (var game in ViewBag.Library)
+    @foreach (var game in Model.Library)
     {
             <li>
                 <a asp-controller="Games" asp-action="ViewGame" asp-route-id="@game.Game.BGGID">@game.Game.Name</a>
-                @if (!ViewBag.userIsProfileOwner)
+                @if (!Model.UserIsProfileOwner && Model.UserIsSignedIn)
                 {
                     @if (game.GameStatus == "Free")
                     {
                         <form class="inline-form-button" asp-controller="Trades" asp-action="Propose" method="post">
                             <input type="hidden" name="gameReceiveID" value="@game.Game.ID" />
-                            <input type="hidden" name="userReceiveID" value="@Model.Id" />
+                            <input type="hidden" name="userReceiveID" value="@Model.User.Id" />
                             <label for="gameInitID">Propose trade for:</label>
                             <select name="gameInitID">
-                                @foreach (var viewerGame in ViewBag.ViewerLibrary)
+                                @foreach (var viewerGame in Model.ViewerLibrary)
                         {
                             if (viewerGame.GameStatus == "Free")
                             {
@@ -34,5 +34,11 @@
                     }
                 }
             </li>
+            
     }
 </ul>
+
+@if (!Model.UserIsSignedIn)
+{
+    <h3><a asp-controller="Account" asp-action="Login">Log in</a> or <a asp-controller="Account" asp-action="Register">create an account</a> add games to your library and propose trades to this user.</h3>
+}

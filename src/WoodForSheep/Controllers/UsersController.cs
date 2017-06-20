@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Identity;
 using WoodForSheep.Models;
 using Microsoft.EntityFrameworkCore;
 using System.Security.Claims;
+using WoodForSheep.Models.UserViewModels;
 
 // For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -41,30 +42,34 @@ namespace WoodForSheep.Controllers
         [HttpGet("Users/Profile/{userName}")]
         public IActionResult Profile(string userName)
         {
-            // Find User.
+            // Create ViewModel.
+            ProfileViewModel model = new ProfileViewModel();
+
+            // Find User whose pages is being viewed, add user to ViewModel.
             ApplicationUser user = context.Users.Single(u => u.UserName == userName);
+            model.User = user;
+            
             // Find Selected User's library.
-            // TODO: Replace with viewmodel solution.
-            ViewBag.Library = context
+            model.Library = context
                 .GameUsers
                 .Include(g => g.Game)
                 .Where(u => u.UserID == user.Id)
                 .ToList();
 
-            // Determine if user being viewed == signed in user.
+            // Determine if viewer is a signed in user.
+            // If not, determine if user is profile owner, and fill in viewer's library if not profile owner.
             if (!_signInManager.IsSignedIn(User))
             {
-                ViewBag.userIsProfileOwner = false;
-                ViewBag.ViewerLibrary = new List<GameUser>();
+                model.UserIsSignedIn = false;
             }
             else
             {
                 ClaimsPrincipal currentUser = this.User;
                 var userId = currentUser.FindFirst(ClaimTypes.NameIdentifier).Value;
-                ViewBag.userIsProfileOwner = (user.Id == userId);
-                if (!ViewBag.userIsProfileOwner)
+                model.UserIsProfileOwner = (user.Id == userId);
+                if (!model.UserIsProfileOwner)
                 {
-                    ViewBag.ViewerLibrary = context
+                    model.ViewerLibrary = context
                         .GameUsers
                         .Include(g => g.Game)
                         .Where(u => u.UserID == userId)
@@ -72,7 +77,7 @@ namespace WoodForSheep.Controllers
                 }
             }
 
-            return View(user);
+            return View(model);
         }
     }
 }
