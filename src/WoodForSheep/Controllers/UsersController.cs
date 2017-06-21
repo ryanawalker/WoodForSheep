@@ -64,6 +64,7 @@ namespace WoodForSheep.Controllers
             }
             else
             {
+                model.UserIsSignedIn = true;
                 ClaimsPrincipal currentUser = this.User;
                 var userId = currentUser.FindFirst(ClaimTypes.NameIdentifier).Value;
                 model.UserIsProfileOwner = (user.Id == userId);
