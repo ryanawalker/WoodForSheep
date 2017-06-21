@@ -9,6 +9,7 @@ using System.Security.Claims;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
+using WoodForSheep.Models.GamesViewModels;
 
 // For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -39,20 +40,9 @@ namespace WoodForSheep.Controllers
         
         public IActionResult ViewGame(int id)
         {
-            ViewBag.BGGID = id;
-            /*
-            // Make sure game with ID exists.
-            if (context.Games.SingleOrDefault(g => g.ID == id) == null)
-            {
-                return Redirect("/Games");
-            }
-
-            // Pass game info from database to view.
-            Game theGame = context.Games.SingleOrDefault(g => g.ID == id);
-            */
-
-            //ViewBag.Game = theGame;
-            return View();
+            ViewGameViewModel model = new ViewGameViewModel();
+            model.BGGID = id;
+            return View(model);
         }
 
         public IActionResult Add(int BGGID, string name)

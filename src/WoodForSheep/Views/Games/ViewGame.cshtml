@@ -1,5 +1,7 @@
-﻿<script src="/lib/jquery/dist/jquery.js"></script>
-<script>var testJSON = $.getJSON("https://bgg-json.azurewebsites.net/thing/@ViewBag.BGGID", function() {
+﻿@model WoodForSheep.Models.GamesViewModels.ViewGameViewModel
+
+<script src="/lib/jquery/dist/jquery.js"></script>
+<script>var testJSON = $.getJSON("https://bgg-json.azurewebsites.net/thing/@Model.BGGID", function() {
     $("#name").text(testJSON.responseJSON.name);
     $("#name-input").val(testJSON.responseJSON.name);
     $("#year").text(testJSON.responseJSON.yearPublished);
@@ -17,7 +19,7 @@
 <form asp-controller="Games" asp-action="Add" method="post">
     <div class="form-group">
         <input id="name-input" class="hidden" value="" name="name"/>
-        <input class="form-control" type="hidden" value="@ViewBag.BGGID" name="BGGID"/>
+        <input class="form-control" type="hidden" value="@Model.BGGID" name="BGGID"/>
     </div>
     <input type="submit" value="Add Game to Collection" />
 </form>
