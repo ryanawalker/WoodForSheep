@@ -38,7 +38,7 @@
     }
 </ul>
 
-@if (!Model.UserIsSignedIn)
+@if (!Model.UserIsSignedIn && !Model.UserIsProfileOwner)
 {
     <h3><a asp-controller="Account" asp-action="Login">Log in</a> or <a asp-controller="Account" asp-action="Register">create an account</a> add games to your library and propose trades to this user.</h3>
 }
