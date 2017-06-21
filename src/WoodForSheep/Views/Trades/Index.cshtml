@@ -1,8 +1,10 @@
-﻿<h1>Your Trades</h1>
+﻿@model WoodForSheep.Models.TradeViewModels.TradeViewModel
+
+<h1>Your Trades</h1>
 
 <h3>Accepted Trades</h3>
 <ul>
-    @foreach (Trade trade in ViewBag.acceptedTrades)
+    @foreach (Trade trade in Model.AcceptedTrades)
     {
         <li>
             <a asp-controller="Users" asp-action="Profile" asp-route-username="@trade.UserInit">@trade.UserInit</a>
@@ -18,7 +20,7 @@
             </form>
             <form class="inline-form-button" asp-controller="Trades" asp-action="Complete" method="post">
                 <input type="hidden" name="tradeID" value="@trade.ID" />
-                <input type="hidden" name="userID" value="ViewBag.UserID" />
+                <input type="hidden" name="userID" value="Model.UserID" />
                 <input class="btn btn-primary" type="submit" value="Complete" />
             </form>
         </li>
@@ -27,7 +29,7 @@
 
 <h3>Proposed Trades</h3>
 <ul>
-    @foreach (Trade trade in ViewBag.proposedTrades)
+    @foreach (Trade trade in Model.ProposedTrades)
     {
         <li>
             <a asp-controller="Users" asp-action="Profile" asp-route-username="@trade.UserInit">@trade.UserInit</a>
@@ -51,7 +53,7 @@
 
 <h3>Completed Trades</h3>
 <ul>
-    @foreach (Trade trade in ViewBag.completedTrades)
+    @foreach (Trade trade in Model.CompletedTrades)
     {
         <li>
             <a asp-controller="Users" asp-action="Profile" asp-route-username="@trade.UserInit">@trade.UserInit</a>
@@ -67,7 +69,7 @@
 
 <h3>Rejected Trades</h3>
 <ul>
-    @foreach (Trade trade in ViewBag.rejectedTrades)
+    @foreach (Trade trade in Model.RejectedTrades)
     {
         <li>
             <a asp-controller="Users" asp-action="Profile" asp-route-username="@trade.UserInit">@trade.UserInit</a>

@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Identity;
 using WoodForSheep.Models;
 using System.Security.Claims;
 using Microsoft.EntityFrameworkCore;
+using WoodForSheep.Models.TradeViewModels;
 
 // For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -37,22 +38,23 @@ namespace WoodForSheep.Controllers
                 return Redirect("/Account/Login");
             }
 
-            // Else, get user ID.
+            // Else, get user ID and create ViewModel.
+            TradeViewModel model = new TradeViewModel();
+
             ClaimsPrincipal currentUser = this.User;
             var userId = currentUser.FindFirst(ClaimTypes.NameIdentifier).Value;
 
-            // TODO: Remove this and substitute for a ViewModel solution.
-            ViewBag.UserID = userId;
+            model.UserId = userId;
 
             // query Trades table, search for trades where UserInitID or UserReceiveID == userId. Return list of those trades to view.
             // TODO: Add "awaiting other user completion" category with according logic.
-            ViewBag.proposedTrades = context.Trades
+            model.ProposedTrades = context.Trades
                 .Include(t => t.GameInit).Include(t => t.GameReceive).Include(t => t.UserInit).Include(t => t.UserReceive)
                 .Where(t => t.UserInitID == userId || t.UserReceiveID == userId)
                 .Where(t => t.UserInitStatus == "Accepted" && t.UserReceiveStatus == "Pending")
                 .ToList();
 
-            ViewBag.acceptedTrades = context.Trades
+            model.AcceptedTrades = context.Trades
                 .Include(t => t.GameInit).Include(t => t.GameReceive).Include(t => t.UserInit).Include(t => t.UserReceive)
                 .Where(t => t.UserInitID == userId || t.UserReceiveID == userId)
                 .Where(t => ((t.UserInitStatus == "Accepted" && t.UserReceiveStatus == "Accepted")
@@ -60,19 +62,19 @@ namespace WoodForSheep.Controllers
                 || (t.UserInitStatus == "Accepted" && t.UserReceiveStatus == "Completed")))
                 .ToList();
 
-            ViewBag.rejectedTrades = context.Trades
+            model.RejectedTrades = context.Trades
                 .Include(t => t.GameInit).Include(t => t.GameReceive).Include(t => t.UserInit).Include(t => t.UserReceive)
                 .Where(t => t.UserInitID == userId || t.UserReceiveID == userId)
                 .Where(t => t.UserInitStatus == "Rejected" || t.UserReceiveStatus == "Rejected")
                 .ToList();
 
-            ViewBag.completedTrades = context.Trades
+            model.CompletedTrades = context.Trades
                 .Include(t => t.GameInit).Include(t => t.GameReceive).Include(t => t.UserInit).Include(t => t.UserReceive)
                 .Where(t => t.UserInitID == userId || t.UserReceiveID == userId)
                 .Where(t => t.UserInitStatus == "Completed" && t.UserReceiveStatus == "Completed")
                 .ToList();
 
-            return View();
+            return View(model);
         }
 
         // POST: /Trades/Propose
